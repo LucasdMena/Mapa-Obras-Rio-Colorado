@@ -1,0 +1,1 @@
+var json_Estaciondebombeo_4 = {"type":"FeatureCollection","name":"Estaciondebombeo_4","crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:OGC:1.3:CRS84"}},"features":[{"type":"Feature","properties":{"fid":"1","id":null,"Nombre":"Estación de Bombeo"},"geometry":{"type":"Point","coordinates":[-64.091901305536695,-38.987385049998998]}}]}
