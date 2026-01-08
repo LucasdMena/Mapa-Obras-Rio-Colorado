@@ -40,20 +40,16 @@
         <script src="js/labels.js"></script>
         <script src="js/leaflet.photon.js"></script>
         <script src="js/leaflet-measure.js"></script>
-        <script src="js/proj4.js"></script>
-        <script src="js/proj4leaflet.js"></script>
-        <script src="data/RedDesagesRC_1.js"></script>
-        <script src="data/LagunasRC_2.js"></script>
-        <script src="data/PLuvialesRC_3.js"></script>
-        <script src="data/Estaciondebombeo_4.js"></script>
-        <script src="data/ProyectosObrasPblicas_5.js"></script>
+        <script src="data/DesagesaCieloabierto_2.js"></script>
+        <script src="data/LagunasRC_3.js"></script>
+        <script src="data/PLuvialesRC_4.js"></script>
+        <script src="data/lineas_de_transporte_ferroviario_AN010_5.js"></script>
         <script src="data/RioColorado_6.js"></script>
+        <script src="data/ProyectosObrasPblicas_7.js"></script>
         <script>
-		var map = L.map('map', {
-    		zoomControl: false,
-    		maxZoom: 20,
-    		minZoom: 1
-		}).fitBounds([[-39.010179318482024,-64.11837799308184],[-38.97378344339406,-64.05889313290103]]);
+        var map = L.map('map', {
+            zoomControl:false, maxZoom:28, minZoom:1
+        }).fitBounds([[-39.01433831584774,-64.12164360999935],[-38.97456497870982,-64.06972430123545]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -135,20 +131,32 @@
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
         }
-        map.createPane('pane_GoogleHybrid_0');
-        map.getPane('pane_GoogleHybrid_0').style.zIndex = 400;
-        var layer_GoogleHybrid_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
-            pane: 'pane_GoogleHybrid_0',
-            opacity: 0.6,
-            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+        map.createPane('pane_ESRISatellite_0');
+        map.getPane('pane_ESRISatellite_0').style.zIndex = 400;
+        var layer_ESRISatellite_0 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            pane: 'pane_ESRISatellite_0',
+            opacity: 1.0,
+            attribution: '',
             minZoom: 1,
             maxZoom: 28,
             minNativeZoom: 0,
             maxNativeZoom: 20
         });
-        layer_GoogleHybrid_0;
-        map.addLayer(layer_GoogleHybrid_0);
-        function pop_RedDesagesRC_1(feature, layer) {
+        layer_ESRISatellite_0;
+        map.addLayer(layer_ESRISatellite_0);
+        map.createPane('pane_OSMStandard_1');
+        map.getPane('pane_OSMStandard_1').style.zIndex = 401;
+        var layer_OSMStandard_1 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            pane: 'pane_OSMStandard_1',
+            opacity: 1.0,
+            attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_OSMStandard_1;
+        function pop_DesagesaCieloabierto_2(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(String(feature.properties['fid']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
@@ -170,185 +178,185 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_RedDesagesRC_1_0(feature) {
+        function style_DesagesaCieloabierto_2_0(feature) {
             switch(String(feature.properties['Tipo'])) {
-                default:
-                    return {
-                pane: 'pane_RedDesagesRC_1',
-                opacity: 1,
-                color: 'rgba(0,0,0,1.0)',
-                dashArray: '',
-                lineCap: 'round',
-                lineJoin: 'round',
-                weight: 4.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
                 case 'Conducto':
                     return {
-                pane: 'pane_RedDesagesRC_1',
+                pane: 'pane_DesagesaCieloabierto_2',
                 opacity: 1,
                 color: 'rgba(0,0,0,1.0)',
                 dashArray: '',
                 lineCap: 'round',
                 lineJoin: 'round',
-                weight: 4.0,
+                weight: 5.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case 'desagüe':
                     return {
-                pane: 'pane_RedDesagesRC_1',
+                pane: 'pane_DesagesaCieloabierto_2',
                 opacity: 1,
                 color: 'rgba(0,0,0,1.0)',
                 dashArray: '',
                 lineCap: 'round',
                 lineJoin: 'round',
-                weight: 4.0,
+                weight: 5.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case 'desagüe Norte':
                     return {
-                pane: 'pane_RedDesagesRC_1',
+                pane: 'pane_DesagesaCieloabierto_2',
                 opacity: 1,
                 color: 'rgba(0,0,0,1.0)',
                 dashArray: '',
                 lineCap: 'round',
                 lineJoin: 'round',
-                weight: 4.0,
+                weight: 5.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case 'Ex canal de riego':
                     return {
-                pane: 'pane_RedDesagesRC_1',
+                pane: 'pane_DesagesaCieloabierto_2',
                 opacity: 1,
                 color: 'rgba(0,0,0,1.0)',
                 dashArray: '',
                 lineCap: 'round',
                 lineJoin: 'round',
-                weight: 4.0,
+                weight: 5.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case 'Zanja':
                     return {
-                pane: 'pane_RedDesagesRC_1',
+                pane: 'pane_DesagesaCieloabierto_2',
                 opacity: 1,
                 color: 'rgba(0,0,0,1.0)',
                 dashArray: '',
                 lineCap: 'round',
                 lineJoin: 'round',
-                weight: 4.0,
+                weight: 5.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_DesagesaCieloabierto_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 5.0,
+                fillOpacity: 0,
+                interactive: false,
             }
                     break;
             }
         }
-        function style_RedDesagesRC_1_1(feature) {
+        function style_DesagesaCieloabierto_2_1(feature) {
             switch(String(feature.properties['Tipo'])) {
-                default:
-                    return {
-                pane: 'pane_RedDesagesRC_1',
-                opacity: 1,
-                color: 'rgba(210,180,80,1.0)',
-                dashArray: '',
-                lineCap: 'round',
-                lineJoin: 'round',
-                weight: 3.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
                 case 'Conducto':
                     return {
-                pane: 'pane_RedDesagesRC_1',
+                pane: 'pane_DesagesaCieloabierto_2',
                 opacity: 1,
-                color: 'rgba(230,139,212,1.0)',
+                color: 'rgba(51,160,44,1.0)',
                 dashArray: '',
                 lineCap: 'round',
                 lineJoin: 'round',
-                weight: 3.0,
+                weight: 4.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case 'desagüe':
                     return {
-                pane: 'pane_RedDesagesRC_1',
+                pane: 'pane_DesagesaCieloabierto_2',
                 opacity: 1,
-                color: 'rgba(94,193,218,1.0)',
+                color: 'rgba(0,112,255,1.0)',
                 dashArray: '',
                 lineCap: 'round',
                 lineJoin: 'round',
-                weight: 3.0,
+                weight: 4.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case 'desagüe Norte':
                     return {
-                pane: 'pane_RedDesagesRC_1',
+                pane: 'pane_DesagesaCieloabierto_2',
                 opacity: 1,
-                color: 'rgba(53,171,221,1.0)',
+                color: 'rgba(26,93,238,1.0)',
                 dashArray: '',
                 lineCap: 'round',
                 lineJoin: 'round',
-                weight: 3.0,
+                weight: 4.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case 'Ex canal de riego':
                     return {
-                pane: 'pane_RedDesagesRC_1',
+                pane: 'pane_DesagesaCieloabierto_2',
                 opacity: 1,
-                color: 'rgba(36,208,73,1.0)',
+                color: 'rgba(228,206,41,1.0)',
                 dashArray: '',
                 lineCap: 'round',
                 lineJoin: 'round',
-                weight: 3.0,
+                weight: 4.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case 'Zanja':
                     return {
-                pane: 'pane_RedDesagesRC_1',
+                pane: 'pane_DesagesaCieloabierto_2',
                 opacity: 1,
-                color: 'rgba(140,9,138,1.0)',
+                color: 'rgba(144,157,255,1.0)',
                 dashArray: '',
                 lineCap: 'round',
                 lineJoin: 'round',
-                weight: 3.0,
+                weight: 4.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_DesagesaCieloabierto_2',
+                opacity: 1,
+                color: 'rgba(55,218,196,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: false,
             }
                     break;
             }
         }
-        map.createPane('pane_RedDesagesRC_1');
-        map.getPane('pane_RedDesagesRC_1').style.zIndex = 401;
-        map.getPane('pane_RedDesagesRC_1').style['mix-blend-mode'] = 'normal';
-        var layer_RedDesagesRC_1 = new L.geoJson.multiStyle(json_RedDesagesRC_1, {
+        map.createPane('pane_DesagesaCieloabierto_2');
+        map.getPane('pane_DesagesaCieloabierto_2').style.zIndex = 402;
+        map.getPane('pane_DesagesaCieloabierto_2').style['mix-blend-mode'] = 'normal';
+        var layer_DesagesaCieloabierto_2 = new L.geoJson.multiStyle(json_DesagesaCieloabierto_2, {
             attribution: '',
-            interactive: true,
-            dataVar: 'json_RedDesagesRC_1',
-            layerName: 'layer_RedDesagesRC_1',
-            pane: 'pane_RedDesagesRC_1',
-            onEachFeature: pop_RedDesagesRC_1,
-            styles: [style_RedDesagesRC_1_0,style_RedDesagesRC_1_1,]
+            interactive: false,
+            dataVar: 'json_DesagesaCieloabierto_2',
+            layerName: 'layer_DesagesaCieloabierto_2',
+            pane: 'pane_DesagesaCieloabierto_2',
+            onEachFeature: pop_DesagesaCieloabierto_2,
+            styles: [style_DesagesaCieloabierto_2_0,style_DesagesaCieloabierto_2_1,]
         });
-        bounds_group.addLayer(layer_RedDesagesRC_1);
-        map.addLayer(layer_RedDesagesRC_1);
-        function pop_LagunasRC_2(feature, layer) {
+        bounds_group.addLayer(layer_DesagesaCieloabierto_2);
+        map.addLayer(layer_DesagesaCieloabierto_2);
+        function pop_LagunasRC_3(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(String(feature.properties['fid']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
@@ -367,9 +375,9 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_LagunasRC_2_0() {
+        function style_LagunasRC_3_0() {
             return {
-                pane: 'pane_LagunasRC_2',
+                pane: 'pane_LagunasRC_3',
                 opacity: 1,
                 color: 'rgba(100,152,210,1.0)',
                 dashArray: '',
@@ -379,24 +387,24 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(165,191,221,1.0)',
-                interactive: true,
+                interactive: false,
             }
         }
-        map.createPane('pane_LagunasRC_2');
-        map.getPane('pane_LagunasRC_2').style.zIndex = 402;
-        map.getPane('pane_LagunasRC_2').style['mix-blend-mode'] = 'normal';
-        var layer_LagunasRC_2 = new L.geoJson(json_LagunasRC_2, {
+        map.createPane('pane_LagunasRC_3');
+        map.getPane('pane_LagunasRC_3').style.zIndex = 403;
+        map.getPane('pane_LagunasRC_3').style['mix-blend-mode'] = 'normal';
+        var layer_LagunasRC_3 = new L.geoJson(json_LagunasRC_3, {
             attribution: '',
-            interactive: true,
-            dataVar: 'json_LagunasRC_2',
-            layerName: 'layer_LagunasRC_2',
-            pane: 'pane_LagunasRC_2',
-            onEachFeature: pop_LagunasRC_2,
-            style: style_LagunasRC_2_0,
+            interactive: false,
+            dataVar: 'json_LagunasRC_3',
+            layerName: 'layer_LagunasRC_3',
+            pane: 'pane_LagunasRC_3',
+            onEachFeature: pop_LagunasRC_3,
+            style: style_LagunasRC_3_0,
         });
-        bounds_group.addLayer(layer_LagunasRC_2);
-        map.addLayer(layer_LagunasRC_2);
-        function pop_PLuvialesRC_3(feature, layer) {
+        bounds_group.addLayer(layer_LagunasRC_3);
+        map.addLayer(layer_LagunasRC_3);
+        function pop_PLuvialesRC_4(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(String(feature.properties['fid']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
@@ -433,9 +441,9 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_PLuvialesRC_3_0() {
+        function style_PLuvialesRC_4_0() {
             return {
-                pane: 'pane_PLuvialesRC_3',
+                pane: 'pane_PLuvialesRC_4',
                 opacity: 1,
                 color: 'rgba(84,176,74,1.0)',
                 dashArray: '',
@@ -443,33 +451,63 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
         }
-        map.createPane('pane_PLuvialesRC_3');
-        map.getPane('pane_PLuvialesRC_3').style.zIndex = 403;
-        map.getPane('pane_PLuvialesRC_3').style['mix-blend-mode'] = 'normal';
-        var layer_PLuvialesRC_3 = new L.geoJson(json_PLuvialesRC_3, {
+        map.createPane('pane_PLuvialesRC_4');
+        map.getPane('pane_PLuvialesRC_4').style.zIndex = 404;
+        map.getPane('pane_PLuvialesRC_4').style['mix-blend-mode'] = 'normal';
+        var layer_PLuvialesRC_4 = new L.geoJson(json_PLuvialesRC_4, {
             attribution: '',
-            interactive: true,
-            dataVar: 'json_PLuvialesRC_3',
-            layerName: 'layer_PLuvialesRC_3',
-            pane: 'pane_PLuvialesRC_3',
-            onEachFeature: pop_PLuvialesRC_3,
-            style: style_PLuvialesRC_3_0,
+            interactive: false,
+            dataVar: 'json_PLuvialesRC_4',
+            layerName: 'layer_PLuvialesRC_4',
+            pane: 'pane_PLuvialesRC_4',
+            onEachFeature: pop_PLuvialesRC_4,
+            style: style_PLuvialesRC_4_0,
         });
-        bounds_group.addLayer(layer_PLuvialesRC_3);
-        map.addLayer(layer_PLuvialesRC_3);
-        function pop_Estaciondebombeo_4(feature, layer) {
+        bounds_group.addLayer(layer_PLuvialesRC_4);
+        map.addLayer(layer_PLuvialesRC_4);
+        function pop_lineas_de_transporte_ferroviario_AN010_5(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(String(feature.properties['fid']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(String(feature.properties['id']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['gid'] !== null ? autolinker.link(String(feature.properties['gid']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Nombre'] !== null ? autolinker.link(String(feature.properties['Nombre']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['entidad'] !== null ? autolinker.link(String(feature.properties['entidad']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['objeto'] !== null ? autolinker.link(String(feature.properties['objeto']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fna'] !== null ? autolinker.link(String(feature.properties['fna']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['gna'] !== null ? autolinker.link(String(feature.properties['gna']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['nam'] !== null ? autolinker.link(String(feature.properties['nam']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fun'] !== null ? autolinker.link(String(feature.properties['fun']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['rgc'] !== null ? autolinker.link(String(feature.properties['rgc']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ltn'] !== null ? autolinker.link(String(feature.properties['ltn']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['loc'] !== null ? autolinker.link(String(feature.properties['loc']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fdc'] !== null ? autolinker.link(String(feature.properties['fdc']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['sag'] !== null ? autolinker.link(String(feature.properties['sag']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -479,294 +517,39 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_Estaciondebombeo_4_0() {
+        function style_lineas_de_transporte_ferroviario_AN010_5_0() {
             return {
-                pane: 'pane_Estaciondebombeo_4',
-                radius: 12.0,
+                pane: 'pane_lineas_de_transporte_ferroviario_AN010_5',
                 opacity: 1,
-                color: 'rgba(255,226,95,1.0)',
+                color: 'rgba(0,0,0,0.35)',
                 dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
+                lineCap: 'round',
+                lineJoin: 'round',
                 weight: 2.0,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(227,26,28,1.0)',
+                fillOpacity: 0,
                 interactive: false,
             }
         }
-        map.createPane('pane_Estaciondebombeo_4');
-        map.getPane('pane_Estaciondebombeo_4').style.zIndex = 404;
-        map.getPane('pane_Estaciondebombeo_4').style['mix-blend-mode'] = 'normal';
-        var layer_Estaciondebombeo_4 = new L.geoJson(json_Estaciondebombeo_4, {
+        function style_lineas_de_transporte_ferroviario_AN010_5_1() {
+            return {
+                pane: 'pane_lineas_de_transporte_ferroviario_AN010_5',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_lineas_de_transporte_ferroviario_AN010_5');
+        map.getPane('pane_lineas_de_transporte_ferroviario_AN010_5').style.zIndex = 405;
+        map.getPane('pane_lineas_de_transporte_ferroviario_AN010_5').style['mix-blend-mode'] = 'normal';
+        var layer_lineas_de_transporte_ferroviario_AN010_5 = new L.geoJson.multiStyle(json_lineas_de_transporte_ferroviario_AN010_5, {
             attribution: '',
             interactive: false,
-            dataVar: 'json_Estaciondebombeo_4',
-            layerName: 'layer_Estaciondebombeo_4',
-            pane: 'pane_Estaciondebombeo_4',
-            onEachFeature: pop_Estaciondebombeo_4,
-            pointToLayer: function (feature, latlng) {
-                var context = {
-                    feature: feature,
-                    variables: {}
-                };
-                return L.circleMarker(latlng, style_Estaciondebombeo_4_0(feature));
-            },
+            dataVar: 'json_lineas_de_transporte_ferroviario_AN010_5',
+            layerName: 'layer_lineas_de_transporte_ferroviario_AN010_5',
+            pane: 'pane_lineas_de_transporte_ferroviario_AN010_5',
+            onEachFeature: pop_lineas_de_transporte_ferroviario_AN010_5,
+            styles: [style_lineas_de_transporte_ferroviario_AN010_5_0,style_lineas_de_transporte_ferroviario_AN010_5_1,]
         });
-        bounds_group.addLayer(layer_Estaciondebombeo_4);
-        map.addLayer(layer_Estaciondebombeo_4);
-        function pop_ProyectosObrasPblicas_5(feature, layer) {
-            var popupContent = '<table>\
-                    <tr>\
-                        <th scope="row">Nombre</th>\
-                        <td class="visible-with-data" id="Nombre">' + (feature.properties['Nombre'] !== null ? autolinker.link(String(feature.properties['Nombre']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Área</th>\
-                        <td class="visible-with-data" id="Área">' + (feature.properties['Área'] !== null ? autolinker.link(String(feature.properties['Área']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Estado</th>\
-                        <td class="visible-with-data" id="Estado">' + (feature.properties['Estado'] !== null ? autolinker.link(String(feature.properties['Estado']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Enlace</th>\
-                        <td class="visible-with-data" id="Enlace">' + (feature.properties['Enlace'] !== null ? autolinker.link(String(feature.properties['Enlace']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Fecha Ini'] !== null ? autolinker.link(String(feature.properties['Fecha Ini']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Fecha Fin'] !== null ? autolinker.link(String(feature.properties['Fecha Fin']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Año</th>\
-                        <td class="visible-with-data" id="Año">' + (feature.properties['Año'] !== null ? autolinker.link(String(feature.properties['Año']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
-			layer.on('popupopen', function(e) {
-				addClassToPopupIfMedia(content, e.popup);
-			});
-			layer.bindPopup(content, { maxHeight: 400 });
-        }
-
-        function style_ProyectosObrasPblicas_5_0(feature) {
-            switch(String(feature.properties['Área'])) {
-                case 'Cloacas':
-                    return {
-                pane: 'pane_ProyectosObrasPblicas_5',
-                radius: 7.6,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(220,174,101,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'Deportes':
-                    return {
-                pane: 'pane_ProyectosObrasPblicas_5',
-                radius: 7.6,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(166,53,200,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'Espacios Públicos':
-                    return {
-                pane: 'pane_ProyectosObrasPblicas_5',
-                radius: 7.6,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(8,219,21,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'Infraestructura Hídrica':
-                    return {
-                pane: 'pane_ProyectosObrasPblicas_5',
-                radius: 7.6,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(33,63,236,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'Nivelación Calles':
-                    return {
-                pane: 'pane_ProyectosObrasPblicas_5',
-                radius: 7.6,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(165,165,165,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'Obras Viales Urbanas':
-                    return {
-                pane: 'pane_ProyectosObrasPblicas_5',
-                radius: 7.6,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(133,133,133,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'Salud':
-                    return {
-                pane: 'pane_ProyectosObrasPblicas_5',
-                radius: 7.6,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(255,22,1,1.0)',
-                interactive: true,
-            }
-                    break;
-                default:
-                    return {
-                pane: 'pane_ProyectosObrasPblicas_5',
-                radius: 7.6,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(224,104,64,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'Cultura':
-                    return {
-                pane: 'pane_ProyectosObrasPblicas_5',
-                radius: 7.6,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(237,63,237,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'Otros':
-                    return {
-                pane: 'pane_ProyectosObrasPblicas_5',
-                radius: 7.6,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(55,172,40,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'Servicios Públicos':
-                    return {
-                pane: 'pane_ProyectosObrasPblicas_5',
-                radius: 7.6,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(255,245,0,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'Turismo':
-                    return {
-                pane: 'pane_ProyectosObrasPblicas_5',
-                radius: 7.6,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(255,127,0,1.0)',
-                interactive: true,
-            }
-                    break;
-            }
-        }
-        map.createPane('pane_ProyectosObrasPblicas_5');
-        map.getPane('pane_ProyectosObrasPblicas_5').style.zIndex = 405;
-        map.getPane('pane_ProyectosObrasPblicas_5').style['mix-blend-mode'] = 'normal';
-        var layer_ProyectosObrasPblicas_5 = new L.geoJson(json_ProyectosObrasPblicas_5, {
-            attribution: '',
-            interactive: true,
-            dataVar: 'json_ProyectosObrasPblicas_5',
-            layerName: 'layer_ProyectosObrasPblicas_5',
-            pane: 'pane_ProyectosObrasPblicas_5',
-            onEachFeature: pop_ProyectosObrasPblicas_5,
-            pointToLayer: function (feature, latlng) {
-                var context = {
-                    feature: feature,
-                    variables: {}
-                };
-                return L.circleMarker(latlng, style_ProyectosObrasPblicas_5_0(feature));
-            },
-        });
-        bounds_group.addLayer(layer_ProyectosObrasPblicas_5);
-        map.addLayer(layer_ProyectosObrasPblicas_5);
+        bounds_group.addLayer(layer_lineas_de_transporte_ferroviario_AN010_5);
+        map.addLayer(layer_lineas_de_transporte_ferroviario_AN010_5);
         function pop_RioColorado_6(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
@@ -861,11 +644,16 @@
         function style_RioColorado_6_0() {
             return {
                 pane: 'pane_RioColorado_6',
-                stroke: false, 
+                opacity: 1,
+                color: 'rgba(35,35,35,0.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(0,0,255,1.0)',
-                interactive: true,
+                fillColor: 'rgba(89,201,253,0.6274509803921569)',
+                interactive: false,
             }
         }
         map.createPane('pane_RioColorado_6');
@@ -873,7 +661,7 @@
         map.getPane('pane_RioColorado_6').style['mix-blend-mode'] = 'normal';
         var layer_RioColorado_6 = new L.geoJson(json_RioColorado_6, {
             attribution: '',
-            interactive: true,
+            interactive: false,
             dataVar: 'json_RioColorado_6',
             layerName: 'layer_RioColorado_6',
             pane: 'pane_RioColorado_6',
@@ -882,14 +670,254 @@
         });
         bounds_group.addLayer(layer_RioColorado_6);
         map.addLayer(layer_RioColorado_6);
+        function pop_ProyectosObrasPblicas_7(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Nombre</th>\
+                        <td>' + (feature.properties['Nombre'] !== null ? autolinker.link(String(feature.properties['Nombre']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Área</th>\
+                        <td>' + (feature.properties['Área'] !== null ? autolinker.link(String(feature.properties['Área']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Estado</th>\
+                        <td>' + (feature.properties['Estado'] !== null ? autolinker.link(String(feature.properties['Estado']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Enlace'] !== null ? autolinker.link(String(feature.properties['Enlace']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Fecha Ini'] !== null ? autolinker.link(String(feature.properties['Fecha Ini']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Fecha Fin'] !== null ? autolinker.link(String(feature.properties['Fecha Fin']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Año'] !== null ? autolinker.link(String(feature.properties['Año']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_ProyectosObrasPblicas_7_0(feature) {
+            switch(String(feature.properties['Área'])) {
+                case 'Cloacas':
+                    return {
+                pane: 'pane_ProyectosObrasPblicas_7',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(56,193,208,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Infraestructura Hídrica':
+                    return {
+                pane: 'pane_ProyectosObrasPblicas_7',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(170,71,236,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Obras Viales Urbanas':
+                    return {
+                pane: 'pane_ProyectosObrasPblicas_7',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(217,124,111,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Deportes':
+                    return {
+                pane: 'pane_ProyectosObrasPblicas_7',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(220,125,193,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Espacios Públicos':
+                    return {
+                pane: 'pane_ProyectosObrasPblicas_7',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(59,222,138,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Nivelación':
+                    return {
+                pane: 'pane_ProyectosObrasPblicas_7',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(168,223,108,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Nivelación Calles':
+                    return {
+                pane: 'pane_ProyectosObrasPblicas_7',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(53,138,141,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Salud':
+                    return {
+                pane: 'pane_ProyectosObrasPblicas_7',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(136,136,39,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_ProyectosObrasPblicas_7');
+        map.getPane('pane_ProyectosObrasPblicas_7').style.zIndex = 407;
+        map.getPane('pane_ProyectosObrasPblicas_7').style['mix-blend-mode'] = 'normal';
+        var layer_ProyectosObrasPblicas_7 = new L.geoJson(json_ProyectosObrasPblicas_7, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ProyectosObrasPblicas_7',
+            layerName: 'layer_ProyectosObrasPblicas_7',
+            pane: 'pane_ProyectosObrasPblicas_7',
+            onEachFeature: pop_ProyectosObrasPblicas_7,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_ProyectosObrasPblicas_7_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_ProyectosObrasPblicas_7);
+        map.addLayer(layer_ProyectosObrasPblicas_7);
+        const url = {"Nominatim OSM": "https://nominatim.openstreetmap.org/search?format=geojson&addressdetails=1&",
+        "France BAN": "https://api-adresse.data.gouv.fr/search/?"}
+        var photonControl = L.control.photon({
+            url: url["France BAN"],
+            feedbackLabel: '',
+            position: 'topleft',
+            includePosition: true,
+            initial: true,
+            // resultsHandler: myHandler,
+        }).addTo(map);
+        photonControl._container.childNodes[0].style.borderRadius="10px"
+        // Create a variable to store the geoJSON data
+        var x = null;
+        // Create a variable to store the marker
+        var marker = null;
+        // Add an event listener to the Photon control to create a marker from the returned geoJSON data
+        var z = null;
+        photonControl.on('selected', function(e) {
+            console.log(photonControl.search.resultsContainer);
+            if (x != null) {
+                map.removeLayer(obj3.marker);
+                map.removeLayer(x);
+            }
+            obj2.gcd = e.choice;
+            x = L.geoJSON(obj2.gcd).addTo(map);
+            var label = typeof obj2.gcd.properties.label === 'undefined' ? obj2.gcd.properties.display_name : obj2.gcd.properties.label;
+            obj3.marker = L.marker(x.getLayers()[0].getLatLng()).bindPopup(label).addTo(map);
+            map.setView(x.getLayers()[0].getLatLng(), 17);
+            z = typeof e.choice.properties.label === 'undefined'? e.choice.properties.display_name : e.choice.properties.label;
+            console.log(e);
+            e.target.input.value = z;
+        });
+        var search = document.getElementsByClassName("leaflet-photon leaflet-control")[0];
+        search.classList.add("leaflet-control-search")
+        search.style.display = "flex";
+        search.style.backgroundColor="rgba(255,255,255,0.5)" 
+
+        // Create the new button element
+        var button = document.createElement("div");
+        button.id = "gcd-button-control";
+        button.className = "gcd-gl-btn fa fa-search search-button";
+
+        // Insert the button at the beginning of the search control
+        search.insertBefore(button, search.firstChild);
+        last = search.lastChild;
+        last.style.display = "none";
+        button.addEventListener("click", function (e) {
+            if (last.style.display === "none") {
+                last.style.display = "block";
+            } else {
+                last.style.display = "none";
+            }
+        });
         var overlaysTree = [
+            {label: 'Proyectos - Obras Públicas<br /><table><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_7_Cloacas0.png" /></td><td>Cloacas</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_7_InfraestructuraHídrica1.png" /></td><td>Infraestructura Hídrica</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_7_ObrasVialesUrbanas2.png" /></td><td>Obras Viales Urbanas</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_7_Deportes3.png" /></td><td>Deportes</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_7_EspaciosPúblicos4.png" /></td><td>Espacios Públicos</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_7_Nivelación5.png" /></td><td>Nivelación</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_7_NivelaciónCalles6.png" /></td><td>Nivelación Calles</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_7_Salud7.png" /></td><td>Salud</td></tr></table>', layer: layer_ProyectosObrasPblicas_7},
             {label: '<img src="legend/RioColorado_6.png" /> Rio Colorado', layer: layer_RioColorado_6},
-            {label: 'Proyectos - Obras Públicas<br /><table><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_5_Cloacas0.png" /></td><td>Cloacas</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_5_Deportes1.png" /></td><td>Deportes</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_5_EspaciosPúblicos2.png" /></td><td>Espacios Públicos</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_5_InfraestructuraHídrica3.png" /></td><td>Infraestructura Hídrica</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_5_NivelaciónCalles4.png" /></td><td>Nivelación Calles</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_5_ObrasVialesUrbanas5.png" /></td><td>Obras Viales Urbanas</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_5_Salud6.png" /></td><td>Salud</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_5_7.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_5_Cultura8.png" /></td><td>Cultura</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_5_Otros9.png" /></td><td>Otros</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_5_ServiciosPúblicos10.png" /></td><td>Servicios Públicos</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_5_Turismo11.png" /></td><td>Turismo</td></tr></table>', layer: layer_ProyectosObrasPblicas_5},
-            {label: '<img src="legend/Estaciondebombeo_4.png" /> Estacion de bombeo', layer: layer_Estaciondebombeo_4},
-            {label: '<img src="legend/PLuvialesRC_3.png" /> PLuviales-RC', layer: layer_PLuvialesRC_3},
-            {label: '<img src="legend/LagunasRC_2.png" /> Lagunas-RC', layer: layer_LagunasRC_2},
-            {label: 'Red-Desagües-RC<br /><table><tr><td style="text-align: center;"><img src="legend/RedDesagesRC_1_0.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/RedDesagesRC_1_Conducto1.png" /></td><td>Conducto</td></tr><tr><td style="text-align: center;"><img src="legend/RedDesagesRC_1_desagüe2.png" /></td><td>desagüe</td></tr><tr><td style="text-align: center;"><img src="legend/RedDesagesRC_1_desagüeNorte3.png" /></td><td>desagüe Norte</td></tr><tr><td style="text-align: center;"><img src="legend/RedDesagesRC_1_Excanalderiego4.png" /></td><td>Ex canal de riego</td></tr><tr><td style="text-align: center;"><img src="legend/RedDesagesRC_1_Zanja5.png" /></td><td>Zanja</td></tr></table>', layer: layer_RedDesagesRC_1},
-            {label: "Google Hybrid", layer: layer_GoogleHybrid_0, radioGroup: 'bm' },]
+            {label: '<img src="legend/lineas_de_transporte_ferroviario_AN010_5.png" /> lineas_de_transporte_ferroviario_AN010', layer: layer_lineas_de_transporte_ferroviario_AN010_5},
+            {label: '<img src="legend/PLuvialesRC_4.png" /> PLuviales-RC', layer: layer_PLuvialesRC_4},
+            {label: '<img src="legend/LagunasRC_3.png" /> Lagunas-RC', layer: layer_LagunasRC_3},
+            {label: 'Desagües a Cielo abierto<br /><table><tr><td style="text-align: center;"><img src="legend/DesagesaCieloabierto_2_Conducto0.png" /></td><td>Conducto</td></tr><tr><td style="text-align: center;"><img src="legend/DesagesaCieloabierto_2_desagüe1.png" /></td><td>desagüe</td></tr><tr><td style="text-align: center;"><img src="legend/DesagesaCieloabierto_2_desagüeNorte2.png" /></td><td>desagüe Norte</td></tr><tr><td style="text-align: center;"><img src="legend/DesagesaCieloabierto_2_Excanalderiego3.png" /></td><td>Ex canal de riego</td></tr><tr><td style="text-align: center;"><img src="legend/DesagesaCieloabierto_2_Zanja4.png" /></td><td>Zanja</td></tr><tr><td style="text-align: center;"><img src="legend/DesagesaCieloabierto_2_5.png" /></td><td></td></tr></table>', layer: layer_DesagesaCieloabierto_2},
+            {label: "OSM Standard", layer: layer_OSMStandard_1},
+            {label: "ESRI Satellite", layer: layer_ESRISatellite_0},]
         var lay = L.control.layers.tree(null, overlaysTree,{
             //namedToggle: true,
             //selectorBack: false,
@@ -902,40 +930,27 @@
         lay.addTo(map);
         setBounds();
         var i = 0;
-        layer_RedDesagesRC_1.eachLayer(function(layer) {
+        layer_DesagesaCieloabierto_2.eachLayer(function(layer) {
             var context = {
                 feature: layer.feature,
                 variables: {}
             };
-            layer.bindTooltip((layer.feature.properties['id'] !== null?String('<div style="color: #000000; font-size: 10pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['id']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_RedDesagesRC_1'});
+            layer.bindTooltip((layer.feature.properties['id'] !== null?String('<div style="color: #000000; font-size: 10pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['id']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_DesagesaCieloabierto_2'});
             labels.push(layer);
             totalMarkers += 1;
               layer.added = true;
               addLabel(layer, i);
               i++;
         });
-        var i = 0;
-        layer_Estaciondebombeo_4.eachLayer(function(layer) {
-            var context = {
-                feature: layer.feature,
-                variables: {}
-            };
-            layer.bindTooltip((layer.feature.properties['Nombre'] !== null?String('<div style="color: #000000; font-size: 8pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['Nombre']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Estaciondebombeo_4'});
-            labels.push(layer);
-            totalMarkers += 1;
-              layer.added = true;
-              addLabel(layer, i);
-              i++;
-        });
-        resetLabels([layer_RedDesagesRC_1,layer_PLuvialesRC_3,layer_Estaciondebombeo_4]);
+        resetLabels([layer_DesagesaCieloabierto_2,layer_PLuvialesRC_4]);
         map.on("zoomend", function(){
-            resetLabels([layer_RedDesagesRC_1,layer_PLuvialesRC_3,layer_Estaciondebombeo_4]);
+            resetLabels([layer_DesagesaCieloabierto_2,layer_PLuvialesRC_4]);
         });
         map.on("layeradd", function(){
-            resetLabels([layer_RedDesagesRC_1,layer_PLuvialesRC_3,layer_Estaciondebombeo_4]);
+            resetLabels([layer_DesagesaCieloabierto_2,layer_PLuvialesRC_4]);
         });
         map.on("layerremove", function(){
-            resetLabels([layer_RedDesagesRC_1,layer_PLuvialesRC_3,layer_Estaciondebombeo_4]);
+            resetLabels([layer_DesagesaCieloabierto_2,layer_PLuvialesRC_4]);
         });
         </script>        
     </body>
