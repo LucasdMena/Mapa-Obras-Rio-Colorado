@@ -13,19 +13,56 @@
         <link rel="stylesheet" href="css/fontawesome-all.min.css">
         <link rel="stylesheet" href="css/leaflet.photon.css">
         <link rel="stylesheet" href="css/leaflet-measure.css">
-        <style>
-        html, body, #map {
-            width: 100%;
-            height: 100%;
-            padding: 0;
-            margin: 0;
-        }
-        </style>
-        <title></title>
+<style>
+  html, body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* 🔹 Encabezado (igual al de Ecovolquetes) */
+  header {
+    background-color: #004d40;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+  }
+
+  header img { height: 40px; }
+
+  header h1 {
+    font-size: 20px;
+    margin: 0;
+    font-weight: 500;
+  }
+
+  /* 🔹 Ajustar el mapa (para que el header no lo tape) */
+  #map {
+    width: 100%;
+    height: calc(100vh - 60px);
+    margin-top: 60px;
+  }
+</style>
+
+        <title>Mapa de Obras Públicas • Río Colorado</title>
     </head>
     <body>
-        <div id="map">
-        </div>
+    <!-- 🔹 Encabezado superior -->
+    <header>
+        <img src="logo.png" alt="Logo Río Colorado" />
+        <h1>Mapa de Obras Públicas • Río Colorado</h1>
+    </header>
+
+    <div id="map"></div>
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
         <script src="js/L.Control.Layers.Tree.min.js"></script>
