@@ -21,15 +21,15 @@
     margin: 0;
   }
 
-  /* 🔹 Encabezado (igual al de Ecovolquetes) */
+  /* 🔹 Encabezado superior */
   header {
     background-color: #004d40;
     color: white;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     padding: 10px 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.25);
     position: fixed;
     top: 0;
     left: 0;
@@ -37,7 +37,9 @@
     z-index: 9999;
   }
 
-  header img { height: 40px; }
+  header img {
+    height: 40px;
+  }
 
   header h1 {
     font-size: 20px;
@@ -45,7 +47,7 @@
     font-weight: 500;
   }
 
-  /* 🔹 Ajustar el mapa (para que el header no lo tape) */
+  /* 🔹 Mapa ajustado al header */
   #map {
     width: 100%;
     height: calc(100vh - 60px);
@@ -53,16 +55,18 @@
   }
 </style>
 
-        <title>Mapa de Obras Públicas • Río Colorado</title>
+<title>Mapa de Obras Públicas • Río Colorado</title>
     </head>
-    <body>
-    <!-- 🔹 Encabezado superior -->
+<body>
+
+    <!-- 🔹 Encabezado -->
     <header>
-        <img src="logo.png" alt="Logo Río Colorado" />
+        <img src="logo.png" alt="Logo Río Colorado">
         <h1>Mapa de Obras Públicas • Río Colorado</h1>
     </header>
 
     <div id="map"></div>
+
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
         <script src="js/L.Control.Layers.Tree.min.js"></script>
@@ -77,15 +81,16 @@
         <script src="js/labels.js"></script>
         <script src="js/leaflet.photon.js"></script>
         <script src="js/leaflet-measure.js"></script>
-        <script src="data/LagunasRC_1.js"></script>
-        <script src="data/PLuvialesRC_2.js"></script>
-        <script src="data/lineas_de_transporte_ferroviario_AN010_3.js"></script>
-        <script src="data/RioColorado_4.js"></script>
-        <script src="data/ProyectosObrasPblicas_5.js"></script>
+        <script src="data/RedDesagesRC_1.js"></script>
+        <script src="data/LagunasRC_2.js"></script>
+        <script src="data/PLuvialesRC_3.js"></script>
+        <script src="data/lineas_de_transporte_ferroviario_AN010_4.js"></script>
+        <script src="data/RioColorado_5.js"></script>
+        <script src="data/ProyectosObrasPblicas_6.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[-39.001898307675596,-64.13569441951691],[-38.96430438359531,-64.07716210734128]]);
+        }).fitBounds([[-39.03028814208158,-64.16284131734879],[-38.955100293921014,-64.04949844176345]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -180,7 +185,207 @@
         });
         layer_GoogleHybrid_0;
         map.addLayer(layer_GoogleHybrid_0);
-        function pop_LagunasRC_1(feature, layer) {
+        function pop_RedDesagesRC_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(String(feature.properties['fid']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(String(feature.properties['id']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Tipo'] !== null ? autolinker.link(String(feature.properties['Tipo']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['año'] !== null ? autolinker.link(String(feature.properties['año']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_RedDesagesRC_1_0(feature) {
+            switch(String(feature.properties['Tipo'])) {
+                default:
+                    return {
+                pane: 'pane_RedDesagesRC_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Conducto':
+                    return {
+                pane: 'pane_RedDesagesRC_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'desagüe':
+                    return {
+                pane: 'pane_RedDesagesRC_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'desagüe Norte':
+                    return {
+                pane: 'pane_RedDesagesRC_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Ex canal de riego':
+                    return {
+                pane: 'pane_RedDesagesRC_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Zanja':
+                    return {
+                pane: 'pane_RedDesagesRC_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        function style_RedDesagesRC_1_1(feature) {
+            switch(String(feature.properties['Tipo'])) {
+                default:
+                    return {
+                pane: 'pane_RedDesagesRC_1',
+                opacity: 1,
+                color: 'rgba(210,180,80,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Conducto':
+                    return {
+                pane: 'pane_RedDesagesRC_1',
+                opacity: 1,
+                color: 'rgba(230,139,212,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'desagüe':
+                    return {
+                pane: 'pane_RedDesagesRC_1',
+                opacity: 1,
+                color: 'rgba(94,193,218,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'desagüe Norte':
+                    return {
+                pane: 'pane_RedDesagesRC_1',
+                opacity: 1,
+                color: 'rgba(53,171,221,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Ex canal de riego':
+                    return {
+                pane: 'pane_RedDesagesRC_1',
+                opacity: 1,
+                color: 'rgba(36,208,73,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Zanja':
+                    return {
+                pane: 'pane_RedDesagesRC_1',
+                opacity: 1,
+                color: 'rgba(140,9,138,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_RedDesagesRC_1');
+        map.getPane('pane_RedDesagesRC_1').style.zIndex = 401;
+        map.getPane('pane_RedDesagesRC_1').style['mix-blend-mode'] = 'normal';
+        var layer_RedDesagesRC_1 = new L.geoJson.multiStyle(json_RedDesagesRC_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_RedDesagesRC_1',
+            layerName: 'layer_RedDesagesRC_1',
+            pane: 'pane_RedDesagesRC_1',
+            onEachFeature: pop_RedDesagesRC_1,
+            styles: [style_RedDesagesRC_1_0,style_RedDesagesRC_1_1,]
+        });
+        bounds_group.addLayer(layer_RedDesagesRC_1);
+        map.addLayer(layer_RedDesagesRC_1);
+        function pop_LagunasRC_2(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(String(feature.properties['fid']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
@@ -199,9 +404,9 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_LagunasRC_1_0() {
+        function style_LagunasRC_2_0() {
             return {
-                pane: 'pane_LagunasRC_1',
+                pane: 'pane_LagunasRC_2',
                 opacity: 1,
                 color: 'rgba(100,152,210,1.0)',
                 dashArray: '',
@@ -214,21 +419,21 @@
                 interactive: false,
             }
         }
-        map.createPane('pane_LagunasRC_1');
-        map.getPane('pane_LagunasRC_1').style.zIndex = 401;
-        map.getPane('pane_LagunasRC_1').style['mix-blend-mode'] = 'normal';
-        var layer_LagunasRC_1 = new L.geoJson(json_LagunasRC_1, {
+        map.createPane('pane_LagunasRC_2');
+        map.getPane('pane_LagunasRC_2').style.zIndex = 402;
+        map.getPane('pane_LagunasRC_2').style['mix-blend-mode'] = 'normal';
+        var layer_LagunasRC_2 = new L.geoJson(json_LagunasRC_2, {
             attribution: '',
             interactive: false,
-            dataVar: 'json_LagunasRC_1',
-            layerName: 'layer_LagunasRC_1',
-            pane: 'pane_LagunasRC_1',
-            onEachFeature: pop_LagunasRC_1,
-            style: style_LagunasRC_1_0,
+            dataVar: 'json_LagunasRC_2',
+            layerName: 'layer_LagunasRC_2',
+            pane: 'pane_LagunasRC_2',
+            onEachFeature: pop_LagunasRC_2,
+            style: style_LagunasRC_2_0,
         });
-        bounds_group.addLayer(layer_LagunasRC_1);
-        map.addLayer(layer_LagunasRC_1);
-        function pop_PLuvialesRC_2(feature, layer) {
+        bounds_group.addLayer(layer_LagunasRC_2);
+        map.addLayer(layer_LagunasRC_2);
+        function pop_PLuvialesRC_3(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(String(feature.properties['fid']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
@@ -265,9 +470,9 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_PLuvialesRC_2_0() {
+        function style_PLuvialesRC_3_0() {
             return {
-                pane: 'pane_PLuvialesRC_2',
+                pane: 'pane_PLuvialesRC_3',
                 opacity: 1,
                 color: 'rgba(84,176,74,1.0)',
                 dashArray: '',
@@ -278,21 +483,21 @@
                 interactive: false,
             }
         }
-        map.createPane('pane_PLuvialesRC_2');
-        map.getPane('pane_PLuvialesRC_2').style.zIndex = 402;
-        map.getPane('pane_PLuvialesRC_2').style['mix-blend-mode'] = 'normal';
-        var layer_PLuvialesRC_2 = new L.geoJson(json_PLuvialesRC_2, {
+        map.createPane('pane_PLuvialesRC_3');
+        map.getPane('pane_PLuvialesRC_3').style.zIndex = 403;
+        map.getPane('pane_PLuvialesRC_3').style['mix-blend-mode'] = 'normal';
+        var layer_PLuvialesRC_3 = new L.geoJson(json_PLuvialesRC_3, {
             attribution: '',
             interactive: false,
-            dataVar: 'json_PLuvialesRC_2',
-            layerName: 'layer_PLuvialesRC_2',
-            pane: 'pane_PLuvialesRC_2',
-            onEachFeature: pop_PLuvialesRC_2,
-            style: style_PLuvialesRC_2_0,
+            dataVar: 'json_PLuvialesRC_3',
+            layerName: 'layer_PLuvialesRC_3',
+            pane: 'pane_PLuvialesRC_3',
+            onEachFeature: pop_PLuvialesRC_3,
+            style: style_PLuvialesRC_3_0,
         });
-        bounds_group.addLayer(layer_PLuvialesRC_2);
-        map.addLayer(layer_PLuvialesRC_2);
-        function pop_lineas_de_transporte_ferroviario_AN010_3(feature, layer) {
+        bounds_group.addLayer(layer_PLuvialesRC_3);
+        map.addLayer(layer_PLuvialesRC_3);
+        function pop_lineas_de_transporte_ferroviario_AN010_4(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(String(feature.properties['fid']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
@@ -341,9 +546,9 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_lineas_de_transporte_ferroviario_AN010_3_0() {
+        function style_lineas_de_transporte_ferroviario_AN010_4_0() {
             return {
-                pane: 'pane_lineas_de_transporte_ferroviario_AN010_3',
+                pane: 'pane_lineas_de_transporte_ferroviario_AN010_4',
                 opacity: 1,
                 color: 'rgba(0,0,0,0.35)',
                 dashArray: '',
@@ -354,27 +559,27 @@
                 interactive: false,
             }
         }
-        function style_lineas_de_transporte_ferroviario_AN010_3_1() {
+        function style_lineas_de_transporte_ferroviario_AN010_4_1() {
             return {
-                pane: 'pane_lineas_de_transporte_ferroviario_AN010_3',
+                pane: 'pane_lineas_de_transporte_ferroviario_AN010_4',
                 interactive: false,
             }
         }
-        map.createPane('pane_lineas_de_transporte_ferroviario_AN010_3');
-        map.getPane('pane_lineas_de_transporte_ferroviario_AN010_3').style.zIndex = 403;
-        map.getPane('pane_lineas_de_transporte_ferroviario_AN010_3').style['mix-blend-mode'] = 'normal';
-        var layer_lineas_de_transporte_ferroviario_AN010_3 = new L.geoJson.multiStyle(json_lineas_de_transporte_ferroviario_AN010_3, {
+        map.createPane('pane_lineas_de_transporte_ferroviario_AN010_4');
+        map.getPane('pane_lineas_de_transporte_ferroviario_AN010_4').style.zIndex = 404;
+        map.getPane('pane_lineas_de_transporte_ferroviario_AN010_4').style['mix-blend-mode'] = 'normal';
+        var layer_lineas_de_transporte_ferroviario_AN010_4 = new L.geoJson.multiStyle(json_lineas_de_transporte_ferroviario_AN010_4, {
             attribution: '',
             interactive: false,
-            dataVar: 'json_lineas_de_transporte_ferroviario_AN010_3',
-            layerName: 'layer_lineas_de_transporte_ferroviario_AN010_3',
-            pane: 'pane_lineas_de_transporte_ferroviario_AN010_3',
-            onEachFeature: pop_lineas_de_transporte_ferroviario_AN010_3,
-            styles: [style_lineas_de_transporte_ferroviario_AN010_3_0,style_lineas_de_transporte_ferroviario_AN010_3_1,]
+            dataVar: 'json_lineas_de_transporte_ferroviario_AN010_4',
+            layerName: 'layer_lineas_de_transporte_ferroviario_AN010_4',
+            pane: 'pane_lineas_de_transporte_ferroviario_AN010_4',
+            onEachFeature: pop_lineas_de_transporte_ferroviario_AN010_4,
+            styles: [style_lineas_de_transporte_ferroviario_AN010_4_0,style_lineas_de_transporte_ferroviario_AN010_4_1,]
         });
-        bounds_group.addLayer(layer_lineas_de_transporte_ferroviario_AN010_3);
-        map.addLayer(layer_lineas_de_transporte_ferroviario_AN010_3);
-        function pop_RioColorado_4(feature, layer) {
+        bounds_group.addLayer(layer_lineas_de_transporte_ferroviario_AN010_4);
+        map.addLayer(layer_lineas_de_transporte_ferroviario_AN010_4);
+        function pop_RioColorado_5(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(String(feature.properties['fid']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
@@ -465,9 +670,9 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_RioColorado_4_0() {
+        function style_RioColorado_5_0() {
             return {
-                pane: 'pane_RioColorado_4',
+                pane: 'pane_RioColorado_5',
                 opacity: 1,
                 color: 'rgba(35,35,35,0.0)',
                 dashArray: '',
@@ -480,21 +685,21 @@
                 interactive: false,
             }
         }
-        map.createPane('pane_RioColorado_4');
-        map.getPane('pane_RioColorado_4').style.zIndex = 404;
-        map.getPane('pane_RioColorado_4').style['mix-blend-mode'] = 'normal';
-        var layer_RioColorado_4 = new L.geoJson(json_RioColorado_4, {
+        map.createPane('pane_RioColorado_5');
+        map.getPane('pane_RioColorado_5').style.zIndex = 405;
+        map.getPane('pane_RioColorado_5').style['mix-blend-mode'] = 'normal';
+        var layer_RioColorado_5 = new L.geoJson(json_RioColorado_5, {
             attribution: '',
             interactive: false,
-            dataVar: 'json_RioColorado_4',
-            layerName: 'layer_RioColorado_4',
-            pane: 'pane_RioColorado_4',
-            onEachFeature: pop_RioColorado_4,
-            style: style_RioColorado_4_0,
+            dataVar: 'json_RioColorado_5',
+            layerName: 'layer_RioColorado_5',
+            pane: 'pane_RioColorado_5',
+            onEachFeature: pop_RioColorado_5,
+            style: style_RioColorado_5_0,
         });
-        bounds_group.addLayer(layer_RioColorado_4);
-        map.addLayer(layer_RioColorado_4);
-        function pop_ProyectosObrasPblicas_5(feature, layer) {
+        bounds_group.addLayer(layer_RioColorado_5);
+        map.addLayer(layer_RioColorado_5);
+        function pop_ProyectosObrasPblicas_6(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <th scope="row">Nombre</th>\
@@ -522,6 +727,10 @@
                         <th scope="row">Año</th>\
                         <td class="visible-with-data" id="Año">' + (feature.properties['Año'] !== null ? autolinker.link(String(feature.properties['Año']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
+                    <tr>\
+                        <th scope="row">Recursos</th>\
+                        <td class="visible-with-data" id="Recursos">' + (feature.properties['Recursos'] !== null ? autolinker.link(String(feature.properties['Recursos']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
 			layer.on('popupopen', function(e) {
@@ -530,11 +739,11 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_ProyectosObrasPblicas_5_0(feature) {
+        function style_ProyectosObrasPblicas_6_0(feature) {
             switch(String(feature.properties['Área'])) {
-                case 'Cloacas':
+                case 'Red Cloacal':
                     return {
-                pane: 'pane_ProyectosObrasPblicas_5',
+                pane: 'pane_ProyectosObrasPblicas_6',
                 radius: 7.6,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -550,7 +759,7 @@
                     break;
                 case 'Deportes':
                     return {
-                pane: 'pane_ProyectosObrasPblicas_5',
+                pane: 'pane_ProyectosObrasPblicas_6',
                 radius: 7.6,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -566,7 +775,7 @@
                     break;
                 case 'Espacios Públicos':
                     return {
-                pane: 'pane_ProyectosObrasPblicas_5',
+                pane: 'pane_ProyectosObrasPblicas_6',
                 radius: 7.6,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -582,7 +791,7 @@
                     break;
                 case 'Infraestructura Hídrica':
                     return {
-                pane: 'pane_ProyectosObrasPblicas_5',
+                pane: 'pane_ProyectosObrasPblicas_6',
                 radius: 7.6,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -598,7 +807,7 @@
                     break;
                 case 'Nivelación Calles':
                     return {
-                pane: 'pane_ProyectosObrasPblicas_5',
+                pane: 'pane_ProyectosObrasPblicas_6',
                 radius: 7.6,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -614,7 +823,7 @@
                     break;
                 case 'Obras Viales Urbanas':
                     return {
-                pane: 'pane_ProyectosObrasPblicas_5',
+                pane: 'pane_ProyectosObrasPblicas_6',
                 radius: 7.6,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -630,7 +839,7 @@
                     break;
                 case 'Salud':
                     return {
-                pane: 'pane_ProyectosObrasPblicas_5',
+                pane: 'pane_ProyectosObrasPblicas_6',
                 radius: 7.6,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -646,7 +855,7 @@
                     break;
                 default:
                     return {
-                pane: 'pane_ProyectosObrasPblicas_5',
+                pane: 'pane_ProyectosObrasPblicas_6',
                 radius: 7.6,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -662,7 +871,7 @@
                     break;
                 case 'Cultura':
                     return {
-                pane: 'pane_ProyectosObrasPblicas_5',
+                pane: 'pane_ProyectosObrasPblicas_6',
                 radius: 7.6,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -678,7 +887,7 @@
                     break;
                 case 'Otros':
                     return {
-                pane: 'pane_ProyectosObrasPblicas_5',
+                pane: 'pane_ProyectosObrasPblicas_6',
                 radius: 7.6,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -694,7 +903,7 @@
                     break;
                 case 'Servicios Públicos':
                     return {
-                pane: 'pane_ProyectosObrasPblicas_5',
+                pane: 'pane_ProyectosObrasPblicas_6',
                 radius: 7.6,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -710,7 +919,7 @@
                     break;
                 case 'Turismo':
                     return {
-                pane: 'pane_ProyectosObrasPblicas_5',
+                pane: 'pane_ProyectosObrasPblicas_6',
                 radius: 7.6,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -724,28 +933,60 @@
                 interactive: true,
             }
                     break;
+                case 'Cloacas':
+                    return {
+                pane: 'pane_ProyectosObrasPblicas_6',
+                radius: 7.6,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(78,200,221,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Obras Públicas':
+                    return {
+                pane: 'pane_ProyectosObrasPblicas_6',
+                radius: 7.6,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(42,174,86,1.0)',
+                interactive: true,
+            }
+                    break;
             }
         }
-        map.createPane('pane_ProyectosObrasPblicas_5');
-        map.getPane('pane_ProyectosObrasPblicas_5').style.zIndex = 405;
-        map.getPane('pane_ProyectosObrasPblicas_5').style['mix-blend-mode'] = 'normal';
-        var layer_ProyectosObrasPblicas_5 = new L.geoJson(json_ProyectosObrasPblicas_5, {
+        map.createPane('pane_ProyectosObrasPblicas_6');
+        map.getPane('pane_ProyectosObrasPblicas_6').style.zIndex = 406;
+        map.getPane('pane_ProyectosObrasPblicas_6').style['mix-blend-mode'] = 'normal';
+        var layer_ProyectosObrasPblicas_6 = new L.geoJson(json_ProyectosObrasPblicas_6, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_ProyectosObrasPblicas_5',
-            layerName: 'layer_ProyectosObrasPblicas_5',
-            pane: 'pane_ProyectosObrasPblicas_5',
-            onEachFeature: pop_ProyectosObrasPblicas_5,
+            dataVar: 'json_ProyectosObrasPblicas_6',
+            layerName: 'layer_ProyectosObrasPblicas_6',
+            pane: 'pane_ProyectosObrasPblicas_6',
+            onEachFeature: pop_ProyectosObrasPblicas_6,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_ProyectosObrasPblicas_5_0(feature));
+                return L.circleMarker(latlng, style_ProyectosObrasPblicas_6_0(feature));
             },
         });
-        bounds_group.addLayer(layer_ProyectosObrasPblicas_5);
-        map.addLayer(layer_ProyectosObrasPblicas_5);
+        bounds_group.addLayer(layer_ProyectosObrasPblicas_6);
+        map.addLayer(layer_ProyectosObrasPblicas_6);
         const url = {"Nominatim OSM": "https://nominatim.openstreetmap.org/search?format=geojson&addressdetails=1&",
         "France BAN": "https://api-adresse.data.gouv.fr/search/?"}
         var photonControl = L.control.photon({
@@ -800,11 +1041,12 @@
             }
         });
         var overlaysTree = [
-            {label: 'Proyectos - Obras Públicas<br /><table><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_5_Cloacas0.png" /></td><td>Cloacas</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_5_Deportes1.png" /></td><td>Deportes</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_5_EspaciosPúblicos2.png" /></td><td>Espacios Públicos</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_5_InfraestructuraHídrica3.png" /></td><td>Infraestructura Hídrica</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_5_NivelaciónCalles4.png" /></td><td>Nivelación Calles</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_5_ObrasVialesUrbanas5.png" /></td><td>Obras Viales Urbanas</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_5_Salud6.png" /></td><td>Salud</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_5_7.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_5_Cultura8.png" /></td><td>Cultura</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_5_Otros9.png" /></td><td>Otros</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_5_ServiciosPúblicos10.png" /></td><td>Servicios Públicos</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_5_Turismo11.png" /></td><td>Turismo</td></tr></table>', layer: layer_ProyectosObrasPblicas_5},
-            {label: '<img src="legend/RioColorado_4.png" /> Rio Colorado', layer: layer_RioColorado_4},
-            {label: '<img src="legend/lineas_de_transporte_ferroviario_AN010_3.png" /> lineas_de_transporte_ferroviario_AN010', layer: layer_lineas_de_transporte_ferroviario_AN010_3},
-            {label: '<img src="legend/PLuvialesRC_2.png" /> PLuviales-RC', layer: layer_PLuvialesRC_2},
-            {label: '<img src="legend/LagunasRC_1.png" /> Lagunas-RC', layer: layer_LagunasRC_1},
+            {label: 'Proyectos - Obras Públicas<br /><table><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_6_Cloacas0.png" /></td><td>Cloacas</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_6_Deportes1.png" /></td><td>Deportes</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_6_EspaciosPúblicos2.png" /></td><td>Espacios Públicos</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_6_InfraestructuraHídrica3.png" /></td><td>Infraestructura Hídrica</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_6_NivelaciónCalles4.png" /></td><td>Nivelación Calles</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_6_ObrasVialesUrbanas5.png" /></td><td>Obras Viales Urbanas</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_6_Salud6.png" /></td><td>Salud</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_6_7.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_6_Cultura8.png" /></td><td>Cultura</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_6_Otros9.png" /></td><td>Otros</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_6_ServiciosPúblicos10.png" /></td><td>Servicios Públicos</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_6_Turismo11.png" /></td><td>Turismo</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_6_Cloacas12.png" /></td><td>Cloacas</td></tr><tr><td style="text-align: center;"><img src="legend/ProyectosObrasPblicas_6_ObrasPúblicas13.png" /></td><td>Obras Públicas</td></tr></table>', layer: layer_ProyectosObrasPblicas_6},
+            {label: '<img src="legend/RioColorado_5.png" /> Rio Colorado', layer: layer_RioColorado_5},
+            {label: '<img src="legend/lineas_de_transporte_ferroviario_AN010_4.png" /> lineas_de_transporte_ferroviario_AN010', layer: layer_lineas_de_transporte_ferroviario_AN010_4},
+            {label: '<img src="legend/PLuvialesRC_3.png" /> PLuviales-RC', layer: layer_PLuvialesRC_3},
+            {label: '<img src="legend/LagunasRC_2.png" /> Lagunas-RC', layer: layer_LagunasRC_2},
+            {label: 'Red-Desagües-RC<br /><table><tr><td style="text-align: center;"><img src="legend/RedDesagesRC_1_0.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/RedDesagesRC_1_Conducto1.png" /></td><td>Conducto</td></tr><tr><td style="text-align: center;"><img src="legend/RedDesagesRC_1_desagüe2.png" /></td><td>desagüe</td></tr><tr><td style="text-align: center;"><img src="legend/RedDesagesRC_1_desagüeNorte3.png" /></td><td>desagüe Norte</td></tr><tr><td style="text-align: center;"><img src="legend/RedDesagesRC_1_Excanalderiego4.png" /></td><td>Ex canal de riego</td></tr><tr><td style="text-align: center;"><img src="legend/RedDesagesRC_1_Zanja5.png" /></td><td>Zanja</td></tr></table>', layer: layer_RedDesagesRC_1},
             {label: "Google Hybrid", layer: layer_GoogleHybrid_0},]
         var lay = L.control.layers.tree(null, overlaysTree,{
             //namedToggle: true,
@@ -817,15 +1059,28 @@
         });
         lay.addTo(map);
         setBounds();
-        resetLabels([layer_PLuvialesRC_2]);
+        var i = 0;
+        layer_RedDesagesRC_1.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['id'] !== null?String('<div style="color: #000000; font-size: 10pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['id']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_RedDesagesRC_1'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        resetLabels([layer_RedDesagesRC_1,layer_PLuvialesRC_3]);
         map.on("zoomend", function(){
-            resetLabels([layer_PLuvialesRC_2]);
+            resetLabels([layer_RedDesagesRC_1,layer_PLuvialesRC_3]);
         });
         map.on("layeradd", function(){
-            resetLabels([layer_PLuvialesRC_2]);
+            resetLabels([layer_RedDesagesRC_1,layer_PLuvialesRC_3]);
         });
         map.on("layerremove", function(){
-            resetLabels([layer_PLuvialesRC_2]);
+            resetLabels([layer_RedDesagesRC_1,layer_PLuvialesRC_3]);
         });
         </script>        
     </body>
